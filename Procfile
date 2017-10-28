@@ -1,1 +1,1 @@
-web: java -jar target/hackyeah.jar
+web: java -jar target/hackyeah-0.0.1-SNAPSHOT.jar
