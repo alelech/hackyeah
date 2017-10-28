@@ -13,13 +13,17 @@ import java.util.List;
 public class InitialParserService {
 
     public InitialParserService() {
+        settings = new CsvParserSettings();
         settings.setHeaderExtractionEnabled(true);
+        settings.getFormat().setDelimiter(';');
+        processor = new RowListProcessor();
         settings.setProcessor(processor);
+        parser = new CsvParser(settings);
     }
 
-    private final RowListProcessor processor = new RowListProcessor();
-    private final CsvParserSettings settings = new CsvParserSettings();
-    private final CsvParser parser = new CsvParser(settings);
+    private final RowListProcessor processor;
+    private final CsvParserSettings settings;
+    private final CsvParser parser;
 
     public InitialCsvResult parse(InputStream inputStream) {
         parser.parse(inputStream);
