@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class FileProcessingService {
 
     private static final Logger log = LoggerFactory.getLogger(FileProcessingService.class);
 
-    private final Random random = new Random();
+    private final AtomicLong jobIdCounter = new AtomicLong();
 
-    public long submitCsvFile(List<String[]> csvFile){
-        long id = random.nextLong();
+    public long submitCsvFile(String[] headers, List<String[]> csvFile){
+        long id = jobIdCounter.incrementAndGet();
         log.info("Starting to process csv , jobId={}",id);
         return id;
     }

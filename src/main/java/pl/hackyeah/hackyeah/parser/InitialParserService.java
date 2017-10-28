@@ -39,7 +39,7 @@ public class InitialParserService {
         List<List<String>> result = previewRows.stream().map(Arrays::asList).collect(Collectors.toList());
         String[] headers = processor.getHeaders();
         //TODO pass column names
-        long jobId = fileProcessingService.submitCsvFile(csvFile);
+        long jobId = fileProcessingService.submitCsvFile(headers, csvFile);
         return new InitialCsvResult(jobId, headers, result);
     }
 }
