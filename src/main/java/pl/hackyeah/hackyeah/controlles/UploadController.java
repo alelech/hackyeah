@@ -20,9 +20,8 @@ public class UploadController {
     private InitialParserService initialParserService;
 
     @RequestMapping("/")
-    @ResponseBody
     String index() {
-        return "hello blotter";
+        return "uploadForm";
     }
 
     @RequestMapping("/uploadTest")
