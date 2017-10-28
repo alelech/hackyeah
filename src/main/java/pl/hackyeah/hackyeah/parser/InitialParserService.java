@@ -1,5 +1,6 @@
 package pl.hackyeah.hackyeah.parser;
 
+import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,20 @@ import java.util.List;
 @Service
 public class InitialParserService {
 
-    private final CsvParser parser = new CsvParser(new CsvParserSettings());
+    public InitialParserService() {
+        settings.setHeaderExtractionEnabled(true);
+        settings.setProcessor(processor);
+    }
 
-    public void parse(InputStream inputStream) {
-        List<String[]> csvFile = parser.parseAll(inputStream);
+    private final RowListProcessor processor = new RowListProcessor();
+    private final CsvParserSettings settings = new CsvParserSettings();
+    private final CsvParser parser = new CsvParser(settings);
+
+    public InitialCsvResult parse(InputStream inputStream) {
+        parser.parse(inputStream);
+        List<String[]> csvFile = processor.getRows();
+        String[] headers = processor.getHeaders();
         csvFile.forEach(row -> System.out.println(Arrays.toString(row)));
+        return new InitialCsvResult(headers);
     }
 }

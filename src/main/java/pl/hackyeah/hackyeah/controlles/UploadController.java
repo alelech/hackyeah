@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+import pl.hackyeah.hackyeah.parser.InitialCsvResult;
 import pl.hackyeah.hackyeah.parser.InitialParserService;
 
 import java.io.IOException;
@@ -26,8 +27,8 @@ public class UploadController {
 
     @RequestMapping("/uploadTest")
     @ResponseStatus(HttpStatus.OK)
-    //TODO just post raw text ?
-    void upload(@RequestParam("csvFile") MultipartFile csvFile) throws IOException {
-        initialParserService.parse(csvFile.getInputStream());
+    @ResponseBody
+    InitialCsvResult upload(@RequestParam("csvFile") MultipartFile csvFile) throws IOException {
+        return initialParserService.parse(csvFile.getInputStream());
     }
 }

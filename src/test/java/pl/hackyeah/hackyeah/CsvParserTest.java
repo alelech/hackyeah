@@ -16,6 +16,7 @@ public class CsvParserTest {
     public void testParsing() throws Exception {
         CsvParserSettings settings = new CsvParserSettings();
         settings.getFormat().setDelimiter(';');
+        settings.setHeaderExtractionEnabled(true);
         CsvParser parser = new CsvParser(settings);
         URL dataUrl = Resources.getResource("data/dane wejściowe.csv");
         List<String[]> allRows = parser.parseAll(Resources.asCharSource(dataUrl, StandardCharsets.UTF_8).openBufferedStream());
