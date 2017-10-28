@@ -5,12 +5,12 @@ import java.util.List;
 
 public class InitialCsvResult {
 
-    private long jobId;
+    private long fileId;
     private final List<String> parsedHeaders;
     private final List<List<String>> previewRows;
 
-    public InitialCsvResult(long jobId, String[] headers, List<List<String>> previewRows) {
-        this.jobId = jobId;
+    public InitialCsvResult(long fileId, String[] headers, List<List<String>> previewRows) {
+        this.fileId = fileId;
         parsedHeaders = Arrays.asList(headers);
         this.previewRows = previewRows;
     }
@@ -23,7 +23,7 @@ public class InitialCsvResult {
         return previewRows;
     }
 
-    public long getJobId() {
-        return jobId;
+    public long getFileId() {
+        return fileId;
     }
 }

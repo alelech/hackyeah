@@ -5,6 +5,7 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.hackyeah.hackyeah.PendingFile;
 import pl.hackyeah.hackyeah.jobs.FileProcessingService;
 
 import java.io.InputStream;
@@ -38,8 +39,7 @@ public class InitialParserService {
         List<String[]> previewRows = csvFile.subList(0, limit);
         List<List<String>> result = previewRows.stream().map(Arrays::asList).collect(Collectors.toList());
         String[] headers = processor.getHeaders();
-        //TODO pass column names
-        long jobId = fileProcessingService.submitCsvFile(headers, csvFile);
-        return new InitialCsvResult(jobId, headers, result);
+        long fileId = fileProcessingService.storeCsvFile(new PendingFile(headers,csvFile));
+        return new InitialCsvResult(fileId, headers, result);
     }
 }
