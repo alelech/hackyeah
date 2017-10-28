@@ -35,7 +35,7 @@ public class InitialParserService {
     public InitialCsvResult parse(InputStream inputStream) {
         parser.parse(inputStream);
         List<String[]> csvFile = processor.getRows();
-        int limit = Math.min(11, csvFile.size());
+        int limit = Math.min(10, csvFile.size());
         List<String[]> previewRows = csvFile.subList(0, limit);
         List<List<String>> result = previewRows.stream().map(Arrays::asList).collect(Collectors.toList());
         String[] headers = processor.getHeaders();
