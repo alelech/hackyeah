@@ -9,6 +9,6 @@ public class ApiController {
 
     @RequestMapping(value = "/api/test", method = RequestMethod.GET, produces = "application/json")
     String test() {
-        return "{\"id\":1,\"content\":\"Hello, Blotter!\"}";
+        return "{\"id\":1,\"content\":\"Hello, Blottter!\"}";
     }
 }
