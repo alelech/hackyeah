@@ -23,7 +23,7 @@ public class UploadController {
 
     @RequestMapping("/")
     String index() {
-        return "uploadForm";
+        return "uploadForm/index";
     }
 
     @RequestMapping("/uploadTest")
