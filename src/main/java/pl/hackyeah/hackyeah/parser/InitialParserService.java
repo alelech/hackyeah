@@ -3,7 +3,9 @@ package pl.hackyeah.hackyeah.parser;
 import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.hackyeah.hackyeah.jobs.FileProcessingService;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class InitialParserService {
+
+    @Autowired
+    private FileProcessingService fileProcessingService;
 
     public InitialParserService() {
         settings = new CsvParserSettings();
@@ -33,7 +38,8 @@ public class InitialParserService {
         List<String[]> previewRows = csvFile.subList(0, limit);
         List<List<String>> result = previewRows.stream().map(Arrays::asList).collect(Collectors.toList());
         String[] headers = processor.getHeaders();
-//        csvFile.forEach(row -> System.out.println(Arrays.toString(row)));
-        return new InitialCsvResult(headers, result);
+        //TODO pass column names
+        long jobId = fileProcessingService.submitCsvFile(csvFile);
+        return new InitialCsvResult(jobId, headers, result);
     }
 }
