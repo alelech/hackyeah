@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InitialParserService {
@@ -28,8 +29,11 @@ public class InitialParserService {
     public InitialCsvResult parse(InputStream inputStream) {
         parser.parse(inputStream);
         List<String[]> csvFile = processor.getRows();
+        int limit = Math.min(11, csvFile.size());
+        List<String[]> previewRows = csvFile.subList(0, limit);
+        List<List<String>> result = previewRows.stream().map(Arrays::asList).collect(Collectors.toList());
         String[] headers = processor.getHeaders();
-        csvFile.forEach(row -> System.out.println(Arrays.toString(row)));
-        return new InitialCsvResult(headers);
+//        csvFile.forEach(row -> System.out.println(Arrays.toString(row)));
+        return new InitialCsvResult(headers, result);
     }
 }
