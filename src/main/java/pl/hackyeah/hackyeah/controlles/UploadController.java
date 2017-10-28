@@ -21,11 +21,6 @@ public class UploadController {
     @Autowired
     private FileProcessingService fileProcessingService;
 
-    @RequestMapping("/")
-    String index() {
-        return "uploadForm/index";
-    }
-
     @RequestMapping("/uploadTest")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
